@@ -4,7 +4,7 @@ const nameTutor = 'Itua';
 // Let Variables
 let welcomeMessage = 'Hello world';
 let favoritePokemon = 'Cubone';
-let numberPokemon;
+let numberPokemon = null;
 
 // Displays message #1 to the user
 alert(welcomeMessage);
