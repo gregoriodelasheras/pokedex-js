@@ -1,0 +1,20 @@
+@use '../abstracts/variables' as v;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: v.$white;
+  color: v.$black;
+  font-family: v.$text-font-stack;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.6;
+  a {
+    text-decoration: none;
+  }
+}
