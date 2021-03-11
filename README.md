@@ -13,7 +13,7 @@ Just another Pokédex App built with HTML, CSS and JavaScript, which uses an ext
 - stylelint v0.86.0
 - HTMLHint v0.10.0
 
-### Open API
+### API:
 - [PokéAPI](https://github.com/PokeAPI/pokeapi): a full RESTful API linked to an extensive database detailing everything about the Pokémon main game series.
 
 ### Libraries:
