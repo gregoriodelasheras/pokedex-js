@@ -1,5 +1,5 @@
 # Pokédex-JS
-Just another Pokédex App built with HTML, CSS and JavaScript, which uses an external RESTful API (PokéAPI). Minimalist and lightweight, this Pokédex is a new alternative to find information about each Pokémon quickly, accurately and reliably.
+Just another Pokédex App built with HTML, CSS and JavaScript, which uses an external RESTful API. Minimalist and lightweight, this Pokédex is a new alternative to find information about each Pokémon quickly, accurately and reliably.
 
 ## Tech stack & Open-source libraries
 
