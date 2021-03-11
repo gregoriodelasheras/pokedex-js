@@ -4,14 +4,63 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="144x144"
+      href="favicon/apple-touch-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="152x152"
+      href="favicon/apple-touch-icon-152x152.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="favicon/favicon-32x32.png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="favicon/favicon-16x16.png"
+      sizes="16x16"
+    />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="dist/css/main.min.css" />
     <title>Just another Pokédex.js App</title>
   </head>
   <body>
     <div class="wrapper">
-      <img src="img/logo.svg" alt="Logo Pokédex.js" class="logo" />
+      <header class="page-header">
+        <div class="container">
+          <img src="img/logo.svg" alt="Logo Pokédex.js" class="logo" />
+          <h1>Just another Pokédex.js App!</h1>
+        </div>
+      </header>
+      <main class="page-index">
+        <div class="container">
+          <div id="show-pokedex"></div>
+        </div>
+      </main>
+      <footer class="page-footer">
+        <div class="container">
+          <p>
+            Made with ❤ by
+            <a href="https://gregoriodelasheras.github.io/"
+              >Francisco Gregorio de las Heras</a
+            >
+          </p>
+          <p>
+            Latest version:
+            <a
+              href="https://github.com/gregoriodelasheras/pokedex-js/releases/tag/v.0.1.1-alpha"
+              >v.0.1.2-alpha</a
+            >
+          </p>
+        </div>
+      </footer>
     </div>
-
     <!-- Scripts -->
     <script src="js/scripts.js"></script>
   </body>
