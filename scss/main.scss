@@ -9,9 +9,12 @@
     7. themes/
 */
 
-@use 'pages/index';
 @use 'base/global';
 @use 'base/typography';
+@use 'pages/header';
+@use 'pages/footer';
+@use 'pages/index';
+@use 'components/breakpoints';
 
 // Google Fonts
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
