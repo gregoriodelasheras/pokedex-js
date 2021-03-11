@@ -1,9 +1,4 @@
-.wrapper {
-  margin: 1rem;
-  .logo {
-    width: 600px;
-  }
-}
+@use '../abstracts/variables' as v;
 
 /*
 .photo {
