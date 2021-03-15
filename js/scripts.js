@@ -102,40 +102,55 @@ let pokemonRepository = (function () {
     },
   ];
 
+  // Minimum keys required to add a new Pokémon to the Pokédex
+  let keyRequired = {
+    name: '',
+    types: ['', ''],
+    evolutions: '',
+    description: '',
+  };
+
   function getAll() {
     return pokemonList;
   }
 
-  // Bonus Task 1 and 2
   function add(item) {
     if (typeof item === 'object') {
       console.log(
-        'Object has all the keys? - ' +
-          Object.keys(pokemonList[0]).every((key) => key in item)
+        `Object "${item.name}" has the required keys? (name, types, evolutions, description): ` +
+          // If the '.every' method is changed to the '.some' method, it will be positive because there is at least one key required in all the entered objects ("name").
+          Object.keys(keyRequired).every((key) => key in item)
       );
-      if (Object.keys(pokemonList[0]).every((key) => key in item)) {
-        alert(
+      console.log(Object.keys(item));
+      console.log(Object.keys(keyRequired));
+      // If the '.every' method is changed to the '.some' method, it will be positive because there is at least one key required in all the entered objects ("name").
+      if (Object.keys(keyRequired).every((key) => key in item)) {
+        console.log(
           `You have discovered a new Pokémon! "${item.name}" data has been entered into the Pokédex.`
         );
         pokemonList.push(item);
       } else {
-        alert(
-          `The data for the new Pokémon you are trying to add is not complete. Please verify that no fields are missing.`
+        console.log(
+          `The data of the new Pokémon ("${item.name}") you are trying to add does not have the minimum required fields to be entered into the Pokédex. Please check that it has at least the following minimum required fields: name, types, evolutions and description.`
         );
       }
     } else {
-      alert(
-        `"${item}" is not a valid Pokémon! Please check that the data type typed in is an object.`
+      // Information is provided about what type of data the entry is.
+      console.log(
+        `"${item}" is not a valid Pokémon! Is a ${typeof item}. Please check that the data type typed in is an object with at least the following minimum required fields: name, types, evolutions and description.`
       );
     }
   }
 
-  function remove(item) {
-    pokemonList.pop(item);
-    alert('The last Pokémon has been deleted');
+  function remove() {
+    console.log(
+      `The last Pokémon ("${
+        pokemonList[pokemonList.length - 1].name
+      }") has been deleted`
+    );
+    pokemonList.pop();
   }
 
-  // Bonus Task 3: find specific Pokémon only by name
   let button = document.getElementById('filter');
   button.onclick = function () {
     let filterPkm = pokemonRepository.getAll().filter(function (pkm) {
@@ -151,7 +166,6 @@ let pokemonRepository = (function () {
   };
 })();
 
-// Bonus Task 1 & 2: Add a valid object 1
 pokemonRepository.add({
   name: 'Panchomon',
   types: ['Rock', 'Roll'],
@@ -164,34 +178,30 @@ pokemonRepository.add({
     'He studies and programs a lot in order to become a good web developer.',
 });
 
-// Bonus Task 1 & 2: Add a valid object 2 (to remove)
 pokemonRepository.add({
   name: 'PanchoDev',
   types: ['Rock', 'Roll'],
-  height: 1.65,
+  height: 1.5,
   weight: 200,
-  gender: ['Male', 'Super Macho'],
-  category: 'WebDev',
+  gender: ['Male', 'IT Guru'],
+  category: 'Full-Stack Web Dev',
   evolutions: ['None'],
   description:
     'Following the wise advice of his tutor Itua and mentor Vinh Tuong, he has managed to achieve mastery of web programming.',
 });
 
-// Bonus Task 1 & 2: Add a invalid object 1 (missing data)
 pokemonRepository.add({
-  name: 'Bla',
-  types: ['Bla', 'Bla'],
-  height: 1,
-  weight: 800,
-  gender: ['Bla1', 'Bla2'],
-  category: 'Bla',
-  evolutions: ['BlaBla'],
+  name: 'Invalidmon',
+  noTypes: ['Bla', 'Bla'],
+  noHeight: 1,
+  noWeight: 800,
+  noGender: ['Bla1', 'Bla2'],
+  noCategory: 'Bla',
+  noEvolutions: ['BlaBla'],
 });
 
-// Bonus Task 1 & 2: Add an invalid object 2
 pokemonRepository.add('Digimon');
 
-// Bonus Task: Remove last valid object
 pokemonRepository.remove();
 
 // Print Pokédex
