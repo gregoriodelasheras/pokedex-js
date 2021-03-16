@@ -28,3 +28,10 @@
   background-color: v.$red;
   color: v.$white;
 }
+
+.btn-dex {
+  @extend %button;
+  background-color: darken(v.$red, 5%);
+  color: #ffffff;
+  margin: 0.5rem auto;
+}
