@@ -110,6 +110,11 @@ let pokemonRepository = (function () {
     description: '',
   };
 
+  function checkKeys(item) {
+    let checkEvaluation = Object.keys(keyRequired).every((key) => key in item);
+    return checkEvaluation;
+  }
+
   function getAll() {
     return pokemonList;
   }
@@ -119,12 +124,12 @@ let pokemonRepository = (function () {
       console.log(
         `Object "${item.name}" has the required keys? (name, types, evolutions, description): ` +
           // If the '.every' method is changed to the '.some' method, it will be positive because there is at least one key required in all the entered objects ("name").
-          Object.keys(keyRequired).every((key) => key in item)
+          checkKeys(item)
       );
       console.log(Object.keys(item));
       console.log(Object.keys(keyRequired));
       // If the '.every' method is changed to the '.some' method, it will be positive because there is at least one key required in all the entered objects ("name").
-      if (Object.keys(keyRequired).every((key) => key in item)) {
+      if (checkKeys(item)) {
         console.log(
           `You have discovered a new Pokémon! "${item.name}" data has been entered into the Pokédex.`
         );
