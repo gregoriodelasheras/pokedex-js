@@ -102,6 +102,34 @@ let pokemonRepository = (function () {
     },
   ];
 
+  function getAll() {
+    return pokemonList;
+  }
+
+  // Print Pokédex
+  function addListItem(pokemon) {
+    let unorderedList = document.querySelector('#pokedex');
+    let listPokemon = document.createElement('li');
+    let button = document.createElement('button');
+    button.innerText = pokemon.name;
+    button.classList.add('btn-dex');
+    listPokemon.appendChild(button);
+    unorderedList.appendChild(listPokemon);
+    pokedexListener(button, pokemon);
+  }
+
+  // Listen Button Pokédex
+  function pokedexListener(button, pokemon) {
+    button.addEventListener('click', function () {
+      showDetails(pokemon);
+    });
+  }
+
+  // Shows information about the consulted Pokémon (Console)
+  function showDetails(pokemon) {
+    console.log(pokemon);
+  }
+
   // Minimum keys required to add a new Pokémon to the Pokédex
   let keyRequired = {
     name: '',
@@ -110,25 +138,22 @@ let pokemonRepository = (function () {
     description: '',
   };
 
+  // Compare the keys of the new object with the minimum required keys
   function checkKeys(item) {
     let checkEvaluation = Object.keys(keyRequired).every((key) => key in item);
+    //Returns true or false
     return checkEvaluation;
   }
 
-  function getAll() {
-    return pokemonList;
-  }
-
+  // Add a new Pokémon
   function add(item) {
     if (typeof item === 'object') {
       console.log(
         `Object "${item.name}" has the required keys? (name, types, evolutions, description): ` +
-          // If the '.every' method is changed to the '.some' method, it will be positive because there is at least one key required in all the entered objects ("name").
           checkKeys(item)
       );
       console.log(Object.keys(item));
       console.log(Object.keys(keyRequired));
-      // If the '.every' method is changed to the '.some' method, it will be positive because there is at least one key required in all the entered objects ("name").
       if (checkKeys(item)) {
         console.log(
           `You have discovered a new Pokémon! "${item.name}" data has been entered into the Pokédex.`
@@ -147,6 +172,7 @@ let pokemonRepository = (function () {
     }
   }
 
+  // Removes the last registered Pokémon
   function remove() {
     console.log(
       `The last Pokémon ("${
@@ -156,81 +182,15 @@ let pokemonRepository = (function () {
     pokemonList.pop();
   }
 
-  let button = document.getElementById('filter');
-  button.onclick = function () {
-    let filterPkm = pokemonRepository.getAll().filter(function (pkm) {
-      return pkm.name === document.getElementById('searchPkm').value;
-    });
-    console.log(filterPkm);
-  };
-
   return {
     getAll: getAll,
+    addListItem: addListItem,
     add: add,
     remove: remove,
   };
 })();
 
-pokemonRepository.add({
-  name: 'Panchomon',
-  types: ['Rock', 'Roll'],
-  height: 1.7,
-  weight: 80,
-  gender: ['Male', 'Latin Lover'],
-  category: 'WebDev?',
-  evolutions: ['PanchoDev'],
-  description:
-    'He studies and programs a lot in order to become a good web developer.',
+// Displays the Pokédex on the website
+pokemonRepository.getAll().forEach(function (pokemon) {
+  pokemonRepository.addListItem(pokemon);
 });
-
-pokemonRepository.add({
-  name: 'PanchoDev',
-  types: ['Rock', 'Roll'],
-  height: 1.5,
-  weight: 200,
-  gender: ['Male', 'IT Guru'],
-  category: 'Full-Stack Web Dev',
-  evolutions: ['None'],
-  description:
-    'Following the wise advice of his tutor Itua and mentor Vinh Tuong, he has managed to achieve mastery of web programming.',
-});
-
-pokemonRepository.add({
-  name: 'Invalidmon',
-  noTypes: ['Bla', 'Bla'],
-  noHeight: 1,
-  noWeight: 800,
-  noGender: ['Bla1', 'Bla2'],
-  noCategory: 'Bla',
-  noEvolutions: ['BlaBla'],
-});
-
-pokemonRepository.add('Digimon');
-
-pokemonRepository.remove();
-
-// Print Pokédex
-function printPokedex(pkm) {
-  let sizePkm =
-    pkm.height > 1.6
-      ? 'Wow, it’s a big Pokémon!'
-      : pkm.height > 1 && pkm.height < 1.6
-      ? 'It’s an average Pokémon.'
-      : 'It’s a tiny Pokémon!';
-
-  // Print Pokédex
-  document.getElementById('show-pokedex').innerHTML += `
-    <div class="pokecard">
-      <p><strong>Name:        </strong>${pkm.name}           </p>
-      <p><strong>Type 1:      </strong>${pkm.types[0]}       | <strong>Type 2:</strong> ${pkm.types[1]}</p>
-      <p><strong>Height:      </strong>${pkm.height}         m</p>
-      <p><strong>Weight:      </strong>${pkm.weight}         kg</p>
-      <p><strong>Genders:     </strong>${pkm.gender[0]}      / ${pkm.gender[1]}</p>
-      <p><strong>Category:    </strong>${pkm.category}       </p>
-      <p><strong>Evolutions:  </strong>${pkm.evolutions[0]}  </p>
-      <p><strong>Description: </strong>${pkm.description}    </p>
-      <p><strong>${sizePkm}</p>
-    </div>`;
-}
-
-pokemonRepository.getAll().forEach(printPokedex);
