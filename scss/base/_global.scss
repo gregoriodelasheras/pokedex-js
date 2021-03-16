@@ -18,7 +18,7 @@ body {
   line-height: 1.6;
   padding: 0.5rem;
   a {
-    color: v.$red;
+    color: darken(v.$red, 10%);
     font-weight: 700;
     text-decoration: none;
     &:hover,
