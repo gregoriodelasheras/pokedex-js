@@ -13,7 +13,7 @@ Just another Pokédex App built with HTML, CSS and JavaScript, which uses an ext
 - [jQuery v3.6.0](https://jquery.com/): a fast, small, and feature-rich JavaScript library.
 
 ### IDE: Visual Studio Code
-- Version: 1.54.1 (user setup)
+- Version: 1.54.1
 - Electron: 11.3.0
 - Node.js: 12.18.3
 
