@@ -45,7 +45,18 @@ body {
   font-weight: 700;
 }
 
+.red {
+  color: $red;
+}
+
 .page-header {
+  .navbar {
+    .red {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 1rem 0 0;
+    }
+  }
   .logo {
     width: 500px;
     margin: 1rem 0;
@@ -181,9 +192,6 @@ body {
   }
   p {
     margin: 0;
-  }
-  .red {
-    color: $red;
   }
 }
 
