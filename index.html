@@ -59,7 +59,10 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#"
+                    <a
+                      class="nav-link active"
+                      aria-current="page"
+                      href="index.html"
                       >Home</a
                     >
                   </li>
@@ -77,42 +80,66 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <li>
-                        <a class="dropdown-item" href="#" onclick="gotoGen(1)"
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          onclick="genSelector(1)"
                           >Generation 1</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" onclick="gotoGen(2)"
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          onclick="genSelector(2)"
                           >Generation 2</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" onclick="gotoGen(3)"
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          onclick="genSelector(3)"
                           >Generation 3</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" onclick="gotoGen(4)"
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          onclick="genSelector(4)"
                           >Generation 4</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" onclick="gotoGen(5)"
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          onclick="genSelector(5)"
                           >Generation 5</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" onclick="gotoGen(6)"
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          onclick="genSelector(6)"
                           >Generation 6</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" onclick="gotoGen(7)"
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          onclick="genSelector(7)"
                           >Generation 7</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" onclick="gotoGen(8)"
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          onclick="genSelector(8)"
                           >Generation 8</a
                         >
                       </li>
@@ -121,7 +148,7 @@
                         <a
                           class="dropdown-item"
                           href="#"
-                          onclick="gotoGen('all')"
+                          onclick="genSelector('all')"
                           >View all generations!</a
                         >
                       </li>
@@ -150,21 +177,22 @@
         </div>
       </header>
       <main class="page-index">
-        <div class="poke-container" id="pokedex-container">
-          <p>
-            Greetings, human! I am a Pokédex. Please select from the navigation
-            menu the generation of Pokémon that you want to see.
-          </p>
-          <img
-            src="img/pokedex-kanto.png"
-            alt="Image of the Kanto Pokedex"
-            title="Image of the Kanto Pokedex"
-            class="pokedex-image img-fluid"
-          />
+        <div class="poke-container">
           <div
             class="d-flex flex-row justify-content-center flex-wrap"
             id="pokedex"
-          ></div>
+          >
+            <p>
+              Greetings, human! I am a Pokédex. Please select from the
+              navigation menu the generation of Pokémon that you want to see.
+            </p>
+            <img
+              src="img/pokedex-kanto.png"
+              alt="Image of the Kanto Pokedex"
+              title="Image of the Kanto Pokedex"
+              class="pokedex-image img-fluid"
+            />
+          </div>
         </div>
         <!-- Modal -->
         <div
