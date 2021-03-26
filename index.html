@@ -77,32 +77,51 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <li>
-                        <a class="dropdown-item" href="#">Generation 1</a>
+                        <a class="dropdown-item" href="#" onclick="gotoGen(1)"
+                          >Generation 1</a
+                        >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#">Generation 2</a>
+                        <a class="dropdown-item" href="#" onclick="gotoGen(2)"
+                          >Generation 2</a
+                        >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#">Generation 3</a>
+                        <a class="dropdown-item" href="#" onclick="gotoGen(3)"
+                          >Generation 3</a
+                        >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#">Generation 4</a>
+                        <a class="dropdown-item" href="#" onclick="gotoGen(4)"
+                          >Generation 4</a
+                        >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#">Generation 5</a>
+                        <a class="dropdown-item" href="#" onclick="gotoGen(5)"
+                          >Generation 5</a
+                        >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#">Generation 6</a>
+                        <a class="dropdown-item" href="#" onclick="gotoGen(6)"
+                          >Generation 6</a
+                        >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#">Generation 7</a>
+                        <a class="dropdown-item" href="#" onclick="gotoGen(7)"
+                          >Generation 7</a
+                        >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#">Generation 8</a>
+                        <a class="dropdown-item" href="#" onclick="gotoGen(8)"
+                          >Generation 8</a
+                        >
                       </li>
                       <li><hr class="dropdown-divider" /></li>
                       <li>
-                        <a class="dropdown-item" href="#"
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          onclick="gotoGen('all')"
                           >View all generations!</a
                         >
                       </li>
@@ -111,11 +130,12 @@
                 </ul>
                 <form class="d-flex">
                   <input
+                    type="text"
                     class="form-control me-2"
                     id="search-pokemon"
-                    type="search"
                     placeholder="Filter by Pokémon"
                     aria-label="Search"
+                    onclick="filterPokemon()"
                   />
                 </form>
               </div>
@@ -130,11 +150,21 @@
         </div>
       </header>
       <main class="page-index">
-        <div class="poke-container">
-          <ul
-            class="list-unstyled list-group d-flex flex-row flex-wrap"
+        <div class="poke-container" id="pokedex-container">
+          <p>
+            Greetings, human! I am a Pokédex. Please select from the navigation
+            menu the generation of Pokémon that you want to see.
+          </p>
+          <img
+            src="img/pokedex-kanto.png"
+            alt="Image of the Kanto Pokedex"
+            title="Image of the Kanto Pokedex"
+            class="pokedex-image img-fluid"
+          />
+          <div
+            class="d-flex flex-row justify-content-center flex-wrap"
             id="pokedex"
-          ></ul>
+          ></div>
         </div>
         <!-- Modal -->
         <div
@@ -182,7 +212,7 @@
             <a
               href="https://github.com/gregoriodelasheras/pokedex-js/releases/latest"
               target="_blank"
-              >v.0.2.0</a
+              >v.0.2.1</a
             >
           </p>
         </div>
