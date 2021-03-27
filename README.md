@@ -29,17 +29,17 @@
 </p>
 
 Objective:
-- Build a small web application with HTML, CSS, and JavaScript that loads data from an external API and enables the viewing of data points in detail
+- Build a small web application with HTML, CSS, and JavaScript that loads data from an external API and enables the viewing of data points in detail.
 
 User Stories:
-- As a user, I want to view a Pokédex and see more data for a particular Pokémon on request
-- As a user, I want to be able to choose which generation of Pokémon I want to see
-- As a user, I want to see a Pokédex that displays the most important data, with a minimalist and simple interface
+- As a user, I want to view a Pokédex and see more data for a particular Pokémon on request.
+- As a user, I want to be able to choose which generation of Pokémon I want to see.
+- As a user, I want to see a Pokédex that displays the most important data, with a minimalist and simple interface.
 
 Key Features: 
-- Load data from an external source (PokéAPI)
-- View a list of items
-- On user action, view details for that item
+- Load data from an external source (PokéAPI).
+- View a list of items.
+- On user action, view details for that item.
 
 ## Built With
 
