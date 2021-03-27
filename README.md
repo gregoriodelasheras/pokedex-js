@@ -28,7 +28,8 @@
   <img src="img/screenshot-app.png" alt="App Screenshot">
 </p>
 
-Objective: To build a small web application with HTML, CSS, and JavaScript that loads data from an external API and enables the viewing of data points in detail.
+Objective:
+- Build a small web application with HTML, CSS, and JavaScript that loads data from an external API and enables the viewing of data points in detail.
 
 User Stories:
 - As a user, I want to view a Pokédex and see more data for a particular Pokémon on request.
@@ -40,7 +41,7 @@ Key Features:
 - View a list of items.
 - On user action, view details for that item.
 
-### Built With
+## Built With
 
 - [PokéAPI](https://github.com/PokeAPI/pokeapi)
 - [jQuery](https://jquery.com/)
