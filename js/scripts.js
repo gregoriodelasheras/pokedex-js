@@ -44,11 +44,12 @@ let pokemonRepository = (function () {
   // Print Pokédex in the browser
   function addPokedexEntry(pokemon) {
     let pokedexDiv = $('#pokedex');
-    let pokedexButton = $(
-      `<button type="button" class="btn btn-danger m-2" 
-      data-bs-toggle="modal" data-bs-target="#pokedexModal">
-      ${capitalizeFirstLetter(pokemon.name)}</button>`
-    );
+    let pokedexButton = $('<button></button>');
+    pokedexButton.attr('type', 'button');
+    pokedexButton.addClass('btn btn-danger m-2');
+    pokedexButton.attr('data-bs-toggle', 'modal');
+    pokedexButton.attr('data-bs-target', '#pokedexModal');
+    pokedexButton.text(capitalizeFirstLetter(pokemon.name));
     pokedexDiv.append(pokedexButton);
     pokedexButton.on('click', function () {
       showLoader();
@@ -69,26 +70,38 @@ let pokemonRepository = (function () {
           : pokemon.id >= 10 && pokemon.id < 100
           ? `#0${pokemon.id} ${pokemon.name}`
           : `#${pokemon.id} ${pokemon.name}`;
-      let pkmName = $(`<h1>${pkmId}</h1>`);
+      let pkmName = $('<h1></h1>');
+      pkmName.text(pkmId);
 
       // Set data: Pokémon Image
-      let pkmImg = $(`<img class="modal-img pokemon-img" 
-      src="${pokemon.imageUrl}" 
-      alt="Image of ${pokemon.name}">`);
+      let pkmImg = $('<img/>');
+      pkmImg.attr('src', pokemon.imageUrl);
+      pkmImg.attr('alt', 'Image of ' + pokemon.name);
+      pkmImg.addClass('modal-img pokemon-img');
+
       // Set data: Pokémon Types
-      let pkmTypes = `<p class="text-center">${pokemon.types.join(' ')}</p>`;
+      let pkmTypes = $(`<p>${pokemon.types.join(' ')}</p>`);
+      pkmTypes.addClass('text-center');
       // Set data: Pokémon Specie
-      let pkmSpecie = `<p class="bold-text text-center">${pokemon.specie}</p>`;
+      let pkmSpecie = $('<p></p>');
+      pkmSpecie.addClass('bold-text text-center');
+      pkmSpecie.text(pokemon.specie);
       // Set data: Pokémon Height
-      let pkmHeight = `<p><span class="bold-text">Height:</span> ${pokemon.height} m</p>`;
+      let pkmHeight = $(
+        `<p><span class="bold-text">Height:</span> ${pokemon.height} m</p>`
+      );
       // Set data: Pokémon Weight
-      let pkmWeight = `<p><span class="bold-text">Weight:</span> ${pokemon.weight} kg</p>`;
+      let pkmWeight = $(
+        `<p><span class="bold-text">Weight:</span> ${pokemon.weight} kg</p>`
+      );
       // Set data: Pokémon Abilities
-      let pkmAbilities = `<p><span class="bold-text"Weight:</span>Abilities:</span> ${pokemon.abilities.join(
-        ' / '
-      )}</p>`;
+      let pkmAbilities = $(
+        `<p><span class="bold-text">Abilities:</span> ${pokemon.abilities.join(
+          ' / '
+        )}</p>`
+      );
       // Set data: Pokémon Description
-      let pkmDescription = `<p><em>"${pokemon.description}"</em></p>`;
+      let pkmDescription = $(`<p><em>"${pokemon.description}"</em></p>`);
 
       // Display data to the user
       $('.modal-title').append(pkmName);
@@ -145,7 +158,7 @@ let pokemonRepository = (function () {
         const response = await fetch(urlMoreData);
         const details = await response.json();
 
-        // Get data: Pokémon Specie
+        // Get data: Pokémon Specie ([7] = English)
         pokemon.specie = details.genera[7].genus;
         // Get data: Pokémon Description
         descriptionEng = details.flavor_text_entries.filter(
@@ -168,11 +181,15 @@ let pokemonRepository = (function () {
   }
 
   function showLoader() {
-    $('.modal-dialog').append('<div id="poke-loader"></div>');
+    let modalDialog = $('.modal-dialog');
+    let loader = $('<div></div>');
+    loader.attr('id', 'poke-loader');
+    modalDialog.append(loader);
   }
 
   function removeLoader() {
-    $('#poke-loader').remove();
+    let loader = $('#poke-loader');
+    loader.remove();
   }
 
   // Return
