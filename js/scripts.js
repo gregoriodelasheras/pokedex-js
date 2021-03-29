@@ -1,6 +1,41 @@
+/* eslint-disable no-console */
+/* eslint-disable no-param-reassign */
 // Pokédex IIFE
-let pokemonRepository = (function () {
+
+const pokemonRepository = (function pokemonRepository2() {
   let pokedex;
+
+  // Tools
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  function showLoader() {
+    const modalDialog = $('.modal-dialog');
+    const loader = $('<div></div>');
+    loader.attr('id', 'poke-loader');
+    modalDialog.append(loader);
+  }
+
+  function removeLoader() {
+    const loader = $('#poke-loader');
+    loader.remove();
+  }
+
+  // Add each Pokémon from the API to the Pokédex with every iteration.
+  function addPokemon(pokemon) {
+    if (
+      typeof pokemon === 'object'
+      && 'name' in pokemon
+      && 'detailsUrl' in pokemon
+    ) {
+      pokedex.push(pokemon);
+    } else {
+      console.error(
+        'The Pokémon data could not be loaded. Professor Oaks team will fix the problem as soon as possible.',
+      );
+    }
+  }
 
   // Load Pokédex data from the API URL
   async function loadPokedex(apiUrl) {
@@ -9,8 +44,8 @@ let pokemonRepository = (function () {
     try {
       const response = await fetch(apiUrl);
       const json = await response.json();
-      json.results.forEach(function (item) {
-        let pokemon = {
+      json.results.forEach((item) => {
+        const pokemon = {
           name: item.name,
           detailsUrl: item.url,
         };
@@ -21,40 +56,58 @@ let pokemonRepository = (function () {
     }
   }
 
-  // Return the Pokédex array outside the IIFE
-  function getPokedex() {
-    return pokedex;
-  }
+  // Load data of the consulted Pokémon to be displayed to the user
+  async function loadPokemonData(pokemon) {
+    // URL 1: https://pokeapi.co/api/v2/pokemon/[ID-Number] => ID, Name, Image, Height, Weight, Types
+    const url = pokemon.detailsUrl;
+    try {
+      let response = await fetch(url);
+      let details = await response.json();
 
-  // Add each Pokémon from the API to the Pokédex with every iteration.
-  function addPokemon(pokemon) {
-    if (
-      typeof pokemon === 'object' &&
-      'name' in pokemon &&
-      'detailsUrl' in pokemon
-    ) {
-      pokedex.push(pokemon);
-    } else {
-      console.error(
-        'The Pokémon data could not be loaded. Professor Oaks team will fix the problem as soon as possible.'
-      );
+      // Get data: Pokémon ID
+      pokemon.id = details.id;
+      // Get data: Pokémon Name
+      pokemon.name = capitalizeFirstLetter(details.name);
+      // Get data: Pokémon Image
+      pokemon.imageUrl = details.sprites.other['official-artwork'].front_default;
+      // Get data: Pokémon Height
+      pokemon.height = details.height / 10;
+      // Get data: Pokémon Weight
+      pokemon.weight = details.weight / 10;
+      // Get data: Pokémon Types
+      pokemon.types = [];
+      details.types.forEach((e) => {
+        pokemon.types.push(
+          `<span class="${e.type.name}">${capitalizeFirstLetter(
+            e.type.name,
+          )}</span>`,
+        );
+      });
+      // Get data: Pokémon Abilities
+      pokemon.abilities = [];
+      details.abilities.forEach((e) => {
+        pokemon.abilities.push(capitalizeFirstLetter(e.ability.name));
+      });
+
+      // URL 2: https://pokeapi.co/api/v2/pokemon-species/[ID-Number] => Specie, Description
+      const urlMoreData = `https://pokeapi.co/api/v2/pokemon-species/${pokemon.id}`;
+      try {
+        response = await fetch(urlMoreData);
+        details = await response.json();
+
+        // Get data: Pokémon Specie ([7] = English)
+        pokemon.specie = details.genera[7].genus;
+        // Get data: Pokémon Description
+        const descriptionEng = details.flavor_text_entries.filter(
+          () => details.language.name === 'en',
+        );
+        pokemon.description = descriptionEng[descriptionEng.length - 1].flavor_text.replace(/[\n \f]/g, ' ');
+      } catch (e) {
+        console.error(e);
+      }
+    } catch (e) {
+      console.error(e);
     }
-  }
-
-  // Print Pokédex in the browser
-  function addPokedexEntry(pokemon) {
-    let pokedexDiv = $('#pokedex');
-    let pokedexButton = $('<button></button>');
-    pokedexButton.attr('type', 'button');
-    pokedexButton.addClass('btn btn-danger m-2');
-    pokedexButton.attr('data-bs-toggle', 'modal');
-    pokedexButton.attr('data-bs-target', '#pokedexModal');
-    pokedexButton.text(capitalizeFirstLetter(pokemon.name));
-    pokedexDiv.append(pokedexButton);
-    pokedexButton.on('click', function () {
-      showLoader();
-      showPokemon(pokemon);
-    });
   }
 
   // Display the data of the Pokémon consulted in the browser
@@ -62,46 +115,48 @@ let pokemonRepository = (function () {
     $('.modal-title').empty();
     $('.modal-body').empty();
 
-    loadPokemonData(pokemon).then(function () {
+    loadPokemonData(pokemon).then(() => {
       // Set data: Pokémon ID number + Name
-      let pkmId =
-        pokemon.id < 10
-          ? `#00${pokemon.id} ${pokemon.name}`
-          : pokemon.id >= 10 && pokemon.id < 100
-          ? `#0${pokemon.id} ${pokemon.name}`
-          : `#${pokemon.id} ${pokemon.name}`;
-      let pkmName = $('<h1></h1>');
+      let pkmId;
+      if (pokemon.id < 10) {
+        pkmId = `#00${pokemon.id} ${pokemon.name}`;
+      } else if (pokemon.id >= 10 && pokemon.id < 100) {
+        pkmId = `#0${pokemon.id} ${pokemon.name}`;
+      } else {
+        pkmId = `#${pokemon.id} ${pokemon.name}`;
+      }
+      const pkmName = $('<h1></h1>');
       pkmName.text(pkmId);
 
       // Set data: Pokémon Image
-      let pkmImg = $('<img/>');
+      const pkmImg = $('<img/>');
       pkmImg.attr('src', pokemon.imageUrl);
-      pkmImg.attr('alt', 'Image of ' + pokemon.name);
+      pkmImg.attr('alt', `Image of ${pokemon.name}`);
       pkmImg.addClass('modal-img pokemon-img');
 
       // Set data: Pokémon Types
-      let pkmTypes = $(`<p>${pokemon.types.join(' ')}</p>`);
+      const pkmTypes = $(`<p>${pokemon.types.join(' ')}</p>`);
       pkmTypes.addClass('text-center');
       // Set data: Pokémon Specie
-      let pkmSpecie = $('<p></p>');
+      const pkmSpecie = $('<p></p>');
       pkmSpecie.addClass('bold-text text-center');
       pkmSpecie.text(pokemon.specie);
       // Set data: Pokémon Height
-      let pkmHeight = $(
-        `<p><span class="bold-text">Height:</span> ${pokemon.height} m</p>`
+      const pkmHeight = $(
+        `<p><span class="bold-text">Height:</span> ${pokemon.height} m</p>`,
       );
       // Set data: Pokémon Weight
-      let pkmWeight = $(
-        `<p><span class="bold-text">Weight:</span> ${pokemon.weight} kg</p>`
+      const pkmWeight = $(
+        `<p><span class="bold-text">Weight:</span> ${pokemon.weight} kg</p>`,
       );
       // Set data: Pokémon Abilities
-      let pkmAbilities = $(
+      const pkmAbilities = $(
         `<p><span class="bold-text">Abilities:</span> ${pokemon.abilities.join(
-          ' / '
-        )}</p>`
+          ' / ',
+        )}</p>`,
       );
       // Set data: Pokémon Description
-      let pkmDescription = $(`<p><em>"${pokemon.description}"</em></p>`);
+      const pkmDescription = $(`<p><em>"${pokemon.description}"</em></p>`);
 
       // Display data to the user
       $('.modal-title').append(pkmName);
@@ -112,98 +167,55 @@ let pokemonRepository = (function () {
         pkmHeight,
         pkmWeight,
         pkmAbilities,
-        pkmDescription
+        pkmDescription,
       );
       removeLoader();
     });
   }
 
-  // Load data of the consulted Pokémon to be displayed to the user
-  async function loadPokemonData(pokemon) {
-    // URL 1: https://pokeapi.co/api/v2/pokemon/[ID-Number] => ID, Name, Image, Height, Weight, Types
-    let url = pokemon.detailsUrl;
-    try {
-      const response = await fetch(url);
-      const details = await response.json();
-
-      // Get data: Pokémon ID
-      pokemon.id = details.id;
-      // Get data: Pokémon Name
-      pokemon.name = capitalizeFirstLetter(details.name);
-      // Get data: Pokémon Image
-      pokemon.imageUrl =
-        details['sprites']['other']['official-artwork']['front_default'];
-      // Get data: Pokémon Height
-      pokemon.height = details.height / 10;
-      // Get data: Pokémon Weight
-      pokemon.weight = details.weight / 10;
-      // Get data: Pokémon Types
-      pokemon.types = [];
-      details.types.forEach(function (e) {
-        pokemon.types.push(
-          `<span class="${e.type.name}">${capitalizeFirstLetter(
-            e.type.name
-          )}</span>`
-        );
-      });
-      // Get data: Pokémon Abilities
-      pokemon.abilities = [];
-      details.abilities.forEach(function (e) {
-        pokemon.abilities.push(capitalizeFirstLetter(e.ability.name));
-      });
-
-      // URL 2: https://pokeapi.co/api/v2/pokemon-species/[ID-Number] => Specie, Description
-      urlMoreData = 'https://pokeapi.co/api/v2/pokemon-species/' + pokemon.id;
-      try {
-        const response = await fetch(urlMoreData);
-        const details = await response.json();
-
-        // Get data: Pokémon Specie ([7] = English)
-        pokemon.specie = details.genera[7].genus;
-        // Get data: Pokémon Description
-        descriptionEng = details.flavor_text_entries.filter(
-          (details) => details.language.name === 'en'
-        );
-        pokemon.description = descriptionEng[
-          descriptionEng.length - 1
-        ].flavor_text.replace(/[\n \f]/g, ' ');
-      } catch (e) {
-        console.error(e);
-      }
-    } catch (e) {
-      console.error(e);
-    }
+  // Print Pokédex in the browser
+  function addPokedexEntry(pokemon) {
+    const pokedexDiv = $('#pokedex');
+    const pokedexButton = $('<button></button>');
+    pokedexButton.attr('type', 'button');
+    pokedexButton.addClass('btn btn-danger m-2');
+    pokedexButton.attr('data-bs-toggle', 'modal');
+    pokedexButton.attr('data-bs-target', '#pokedexModal');
+    pokedexButton.text(capitalizeFirstLetter(pokemon.name));
+    pokedexDiv.append(pokedexButton);
+    pokedexButton.on('click', () => {
+      showLoader();
+      showPokemon(pokemon);
+    });
   }
 
-  // Tools
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-  function showLoader() {
-    let modalDialog = $('.modal-dialog');
-    let loader = $('<div></div>');
-    loader.attr('id', 'poke-loader');
-    modalDialog.append(loader);
-  }
-
-  function removeLoader() {
-    let loader = $('#poke-loader');
-    loader.remove();
+  // Return the Pokédex array outside the IIFE
+  function getPokedex() {
+    return pokedex;
   }
 
   // Return
   return {
-    loadPokedex: loadPokedex,
-    addPokemon: addPokemon,
-    getPokedex: getPokedex,
-    addPokedexEntry: addPokedexEntry,
-    showPokemon: showPokemon,
-    loadPokemonData: loadPokemonData,
+    loadPokedex,
+    addPokemon,
+    getPokedex,
+    addPokedexEntry,
+    showPokemon,
+    loadPokemonData,
   };
-})();
+}());
+
+// Pokédex Builder (takes as parameter the URL of the generation)
+function pokedexBuilder(apiUrl) {
+  pokemonRepository.loadPokedex(apiUrl).then(() => {
+    pokemonRepository.getPokedex().forEach((pokemon) => {
+      pokemonRepository.addPokedexEntry(pokemon);
+    });
+  });
+}
 
 // Generation selector (From generation 1 to generation 8, and all generations)
+// eslint-disable-next-line no-unused-vars
 function genSelector(genNumber) {
   let apiUrl;
   // Set the API URL for each generation
@@ -235,27 +247,21 @@ function genSelector(genNumber) {
     case 'all':
       apiUrl = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=898';
       break;
+    default:
+      break;
   }
   $('#pokedex').empty();
   pokedexBuilder(apiUrl);
 }
 
-// Pokédex Builder (takes as parameter the URL of the generation)
-function pokedexBuilder(apiUrl) {
-  pokemonRepository.loadPokedex(apiUrl).then(function () {
-    pokemonRepository.getPokedex().forEach(function (pokemon) {
-      pokemonRepository.addPokedexEntry(pokemon);
-    });
-  });
-}
-
 // Filter Pokédex by Pokémon name
+// eslint-disable-next-line no-unused-vars
 function filterPokemon() {
-  $(document).ready(function () {
-    $('#search-pokemon').on('keyup', function () {
-      var value = $(this).val().toLowerCase();
-      $('#pokedex button').filter(function () {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+  $(document).ready(() => {
+    $('#search-pokemon').on('keyup', function searchPokemon() {
+      const value = $(this).val().toLowerCase();
+      $('#pokedex button').filter(function filterButtons() {
+        return $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
       });
     });
   });
