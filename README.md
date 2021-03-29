@@ -65,5 +65,5 @@ Project Link: [https://gregoriodelasheras.github.io/pokedex-js/](https://gregori
 ## Acknowledgements
 
 * [PokéAPI](https://github.com/PokeAPI/pokeapi)
-* Itua Akhator
+* [Itua Akhator](https://github.com/iakhator)
 * [Vinh-Tuong Mai](https://github.com/mvtuong)
