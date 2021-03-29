@@ -1,8 +1,7 @@
-/* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
+/* eslint-disable no-console */
 // Pokédex IIFE
-
-const pokemonRepository = (function pokemonRepository2() {
+const pokemonRepository = (function pokemonRepository() {
   let pokedex;
 
   // Tools
@@ -99,9 +98,11 @@ const pokemonRepository = (function pokemonRepository2() {
         pokemon.specie = details.genera[7].genus;
         // Get data: Pokémon Description
         const descriptionEng = details.flavor_text_entries.filter(
-          () => details.language.name === 'en',
+          (pokedexEnglish) => pokedexEnglish.language.name === 'en',
         );
-        pokemon.description = descriptionEng[descriptionEng.length - 1].flavor_text.replace(/[\n \f]/g, ' ');
+        pokemon.description = descriptionEng[
+          descriptionEng.length - 1
+        ].flavor_text.replace(/[\n \f]/g, ' ');
       } catch (e) {
         console.error(e);
       }
