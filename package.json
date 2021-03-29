@@ -1,0 +1,28 @@
+{
+  "name": "pokedex",
+  "version": "0.2.2",
+  "description": "Just another Pokédex App built with HTML, CSS and JavaScript, which uses an external RESTful API. Minimalist and lightweight, this Pokédex is a new alternative to find information about each Pokémon quickly, accurately and reliably.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gregoriodelasheras/pokedex-js.git"
+  },
+  "author": "Francisco Gregorio de las Heras",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gregoriodelasheras/pokedex-js/issues"
+  },
+  "homepage": "https://github.com/gregoriodelasheras/pokedex-js#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1"
+  }
+}
