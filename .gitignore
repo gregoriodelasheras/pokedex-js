@@ -4,4 +4,3 @@
 *.sass.map
 *.scss.map
 node_modules
-package.json
