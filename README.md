@@ -56,7 +56,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Francisco Gregorio de las Heras - [@herasdev](https://twitter.com/herasdev)
+Francisco Gregorio de las Heras: [LinkedIn](https://www.linkedin.com/in/francisco-gregorio-de-las-heras/)
 
 Project Link: [https://gregoriodelasheras.github.io/pokedex-js/](https://gregoriodelasheras.github.io/pokedex-js/)
 
