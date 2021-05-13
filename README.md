@@ -24,7 +24,7 @@
 ## About The Project
 
 <p align="center">
-  <img src="img/screenshot-app.png" alt="App Screenshot">
+  ![screenshot-app](https://user-images.githubusercontent.com/77192223/118172042-35da6d00-b42c-11eb-8335-2adb65eab416.png)
 </p>
 
 Objective:
