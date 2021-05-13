@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <p align="center">
   <a href="https://gregoriodelasheras.github.io/pokedex-js/">
-    <img src="img/logo-readme.svg" alt="Logo" width="600">
+    <img src="https://user-images.githubusercontent.com/77192223/118173323-b6e63400-b42d-11eb-9213-62ec8b47d89f.png" alt="Logo" width="600">
   </a>
   <p align="center">
     Just another Pokédex App built with HTML, CSS and JavaScript, which uses an external RESTful API. Minimalist and lightweight, this Pokédex is a new alternative to find information about each Pokémon quickly, accurately and reliably.
